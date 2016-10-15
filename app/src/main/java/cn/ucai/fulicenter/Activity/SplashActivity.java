@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import cn.ucai.fulicenter.R;
 
 public class SplashActivity extends AppCompatActivity {
-    private static final long sleepTime=200;
+    private static final long sleepTime=3000;
     @Override
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }
                 startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                finish();
             }
         }).start();
 
