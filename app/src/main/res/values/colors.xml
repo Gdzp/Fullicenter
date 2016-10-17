@@ -12,7 +12,7 @@
     <color name="black2">#232325</color>
     <color name="black3">#ffeeeeee</color>
     <color name="green">#4CAF50</color>
-    <color name="blue">#34e9ad</color>
+    <color name="blue">#347ce9</color>
     <color name="gray">#9A9A9A</color>
     <color name="red">#FC2828</color>
     <color name="tab_bg">#ff7800</color>
@@ -57,5 +57,5 @@
     <color name="bluebg">#007edf</color>
     <color name="greybg">#EEEEEE</color>
     <color name="fontgrey">#999999</color>
-    <color name="main_orange">#2cffbc</color>
+    <color name="main_orange">#FF6C2C</color>
 </resources>
