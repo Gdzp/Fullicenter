@@ -1,9 +1,10 @@
 package cn.ucai.fulicenter.bean;
 
 /**
- * Created by Think on 2016/10/14.
+ * Created by Winston on 2016/10/13.
  */
-public class collect {
+
+public class CollectBean {
 
     /**
      * id : 7672
@@ -11,8 +12,8 @@ public class collect {
      * goodsId : 7672
      * goodsName : 趣味煮蛋模具
      * goodsEnglishName : Kotobuki
-     * goodsThumb : http:121.197.1.20/images/201507/thumb_img/6372_thumb_G_1437108490316.jpg
-     * goodsImg : http:121.197.1.20/images/201507/1437108490034171398.jpg
+     * goodsThumb : http://121.197.1.20/images/201507/thumb_img/6372_thumb_G_1437108490316.jpg
+     * goodsImg : http://121.197.1.20/images/201507/1437108490034171398.jpg
      * addTime : 1442419200000
      */
 
@@ -25,24 +26,7 @@ public class collect {
     private String goodsImg;
     private long addTime;
 
-    public collect(int id, int userName, int goodsId, String goodsName, String goodsEnglishName, String goodsThumb, String goodsImg, long addTime) {
-        this.id = id;
-        this.userName = userName;
-        this.goodsId = goodsId;
-        this.goodsName = goodsName;
-        this.goodsEnglishName = goodsEnglishName;
-        this.goodsThumb = goodsThumb;
-        this.goodsImg = goodsImg;
-        this.addTime = addTime;
-    }
-
-    public collect(int id) {
-
-        this.id = id;
-    }
-
     public int getId() {
-
         return id;
     }
 
@@ -104,19 +88,5 @@ public class collect {
 
     public void setAddTime(long addTime) {
         this.addTime = addTime;
-    }
-
-    @Override
-    public String toString() {
-        return "collect{" +
-                "id=" + id +
-                ", userName=" + userName +
-                ", goodsId=" + goodsId +
-                ", goodsName='" + goodsName + '\'' +
-                ", goodsEnglishName='" + goodsEnglishName + '\'' +
-                ", goodsThumb='" + goodsThumb + '\'' +
-                ", goodsImg='" + goodsImg + '\'' +
-                ", addTime=" + addTime +
-                '}';
     }
 }

@@ -1,10 +1,10 @@
 package cn.ucai.fulicenter.bean;
 
 /**
- * Created by Think on 2016/10/14.
+ * Created by Winston on 2016/10/13.
  */
-public class NewGood {
 
+public class NewGoodsBean {
 
     /**
      * id : 1
@@ -48,35 +48,7 @@ public class NewGood {
     private int addTime;
     private boolean promote;
 
-    public NewGood(int id, int goodsId, int catId, String goodsName, String goodsEnglishName, String goodsBrief, String shopPrice, String currencyPrice, String promotePrice, String rankPrice, boolean isPromote, String goodsThumb, String goodsImg, int colorId, String colorName, String colorCode, String colorUrl, int addTime, boolean promote) {
-        this.id = id;
-        this.goodsId = goodsId;
-        this.catId = catId;
-        this.goodsName = goodsName;
-        this.goodsEnglishName = goodsEnglishName;
-        this.goodsBrief = goodsBrief;
-        this.shopPrice = shopPrice;
-        this.currencyPrice = currencyPrice;
-        this.promotePrice = promotePrice;
-        this.rankPrice = rankPrice;
-        this.isPromote = isPromote;
-        this.goodsThumb = goodsThumb;
-        this.goodsImg = goodsImg;
-        this.colorId = colorId;
-        this.colorName = colorName;
-        this.colorCode = colorCode;
-        this.colorUrl = colorUrl;
-        this.addTime = addTime;
-        this.promote = promote;
-    }
-
-    public NewGood(int id) {
-
-        this.id = id;
-    }
-
     public int getId() {
-
         return id;
     }
 
@@ -226,30 +198,5 @@ public class NewGood {
 
     public void setPromote(boolean promote) {
         this.promote = promote;
-    }
-
-    @Override
-    public String toString() {
-        return "NewGood{" +
-                "id=" + id +
-                ", goodsId=" + goodsId +
-                ", catId=" + catId +
-                ", goodsName='" + goodsName + '\'' +
-                ", goodsEnglishName='" + goodsEnglishName + '\'' +
-                ", goodsBrief='" + goodsBrief + '\'' +
-                ", shopPrice='" + shopPrice + '\'' +
-                ", currencyPrice='" + currencyPrice + '\'' +
-                ", promotePrice='" + promotePrice + '\'' +
-                ", rankPrice='" + rankPrice + '\'' +
-                ", isPromote=" + isPromote +
-                ", goodsThumb='" + goodsThumb + '\'' +
-                ", goodsImg='" + goodsImg + '\'' +
-                ", colorId=" + colorId +
-                ", colorName='" + colorName + '\'' +
-                ", colorCode='" + colorCode + '\'' +
-                ", colorUrl='" + colorUrl + '\'' +
-                ", addTime=" + addTime +
-                ", promote=" + promote +
-                '}';
     }
 }

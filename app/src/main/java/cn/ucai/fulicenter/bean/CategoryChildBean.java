@@ -1,9 +1,10 @@
 package cn.ucai.fulicenter.bean;
 
 /**
- * Created by Think on 2016/10/14.
+ * Created by Winston on 2016/10/13.
  */
-public class categoryChild {
+
+public class CategoryChildBean {
 
     /**
      * id : 345
@@ -17,20 +18,7 @@ public class categoryChild {
     private String name;
     private String imageUrl;
 
-    public categoryChild(int id, int parentId, String name, String imageUrl) {
-        this.id = id;
-        this.parentId = parentId;
-        this.name = name;
-        this.imageUrl = imageUrl;
-    }
-
-    public categoryChild(int id) {
-
-        this.id = id;
-    }
-
     public int getId() {
-
         return id;
     }
 
@@ -60,15 +48,5 @@ public class categoryChild {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "categoryChild{" +
-                "id=" + id +
-                ", parentId=" + parentId +
-                ", name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
     }
 }

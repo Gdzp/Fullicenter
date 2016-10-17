@@ -1,9 +1,10 @@
 package cn.ucai.fulicenter.bean;
 
 /**
- * Created by Think on 2016/10/14.
+ * Created by Winston on 2016/10/13.
  */
-public class Cart {
+
+public class CartBean {
 
     /**
      * id : 35
@@ -23,23 +24,7 @@ public class Cart {
     private boolean isChecked;
     private boolean checked;
 
-    public Cart(int id, String userName, int goodsId, Object goods, int count, boolean isChecked, boolean checked) {
-        this.id = id;
-        this.userName = userName;
-        this.goodsId = goodsId;
-        this.goods = goods;
-        this.count = count;
-        this.isChecked = isChecked;
-        this.checked = checked;
-    }
-
-    public Cart(int id) {
-
-        this.id = id;
-    }
-
     public int getId() {
-
         return id;
     }
 
@@ -93,18 +78,5 @@ public class Cart {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", goodsId=" + goodsId +
-                ", goods=" + goods +
-                ", count=" + count +
-                ", isChecked=" + isChecked +
-                ", checked=" + checked +
-                '}';
     }
 }

@@ -1,10 +1,10 @@
 package cn.ucai.fulicenter.bean;
 
 /**
- * Created by Think on 2016/10/14.
+ * Created by Winston on 2016/10/13.
  */
-public class categoryGroup {
 
+public class CategoryGroupBean {
 
     /**
      * id : 344
@@ -28,19 +28,7 @@ public class categoryGroup {
         return name;
     }
 
-    public categoryGroup(int id, String imageUrl, String name) {
-        this.id = id;
-        this.imageUrl = imageUrl;
-        this.name = name;
-    }
-
-    public categoryGroup(int id) {
-
-        this.id = id;
-    }
-
     public void setName(String name) {
-
         this.name = name;
     }
 
@@ -50,14 +38,5 @@ public class categoryGroup {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "categoryGroup{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
     }
 }

@@ -1,9 +1,12 @@
 package cn.ucai.fulicenter.bean;
 
+import java.util.List;
+
 /**
- * Created by Think on 2016/10/14.
+ * Created by Winston on 2016/10/13.
  */
-public class GoodsDetails {
+
+public class GoodsDetailsBean {
 
     /**
      * id : 280
@@ -20,7 +23,9 @@ public class GoodsDetails {
      * goodsThumb : 201509/thumb_img/7677_thumb_G_1442391216339.png
      * goodsImg : 201509/thumb_img/7677_thumb_G_1442391216339.png
      * addTime : 1442419200000
-     * shareUrl : http:m.fulishe.com/item/7677
+     * shareUrl : http://m.fulishe.com/item/7677
+     * properties : [{"id":9529,"goodsId":0,"colorId":7,"colorName":"白色","colorCode":"#ffffff","colorImg":"","colorUrl":"https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-3609973698.66.6PtkVY&id=520971761592&rn=5ddf7aff64dbe1a24da0eaf7409e3389&abbucket=15&skuId=3104519239252","albums":[{"pid":7677,"imgId":28296,"imgUrl":"201509/goods_img/7677_P_1442391216432.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28297,"imgUrl":"201509/goods_img/7677_P_1442391216215.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28298,"imgUrl":"201509/goods_img/7677_P_1442391216692.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28299,"imgUrl":"201509/goods_img/7677_P_1442391216316.png","thumbUrl":"no_picture.gif"}]}]
+     * promote : false
      */
 
     private int id;
@@ -38,35 +43,21 @@ public class GoodsDetails {
     private String goodsImg;
     private long addTime;
     private String shareUrl;
-    private String properties;
-    private String albnms;
+    private boolean promote;
+    /**
+     * id : 9529
+     * goodsId : 0
+     * colorId : 7
+     * colorName : 白色
+     * colorCode : #ffffff
+     * colorImg :
+     * colorUrl : https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-3609973698.66.6PtkVY&id=520971761592&rn=5ddf7aff64dbe1a24da0eaf7409e3389&abbucket=15&skuId=3104519239252
+     * albums : [{"pid":7677,"imgId":28296,"imgUrl":"201509/goods_img/7677_P_1442391216432.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28297,"imgUrl":"201509/goods_img/7677_P_1442391216215.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28298,"imgUrl":"201509/goods_img/7677_P_1442391216692.png","thumbUrl":"no_picture.gif"},{"pid":7677,"imgId":28299,"imgUrl":"201509/goods_img/7677_P_1442391216316.png","thumbUrl":"no_picture.gif"}]
+     */
 
-    public GoodsDetails(int id, int goodsId, int catId, String goodsName, String goodsEnglishName, String goodsBrief, String shopPrice, String currencyPrice, String promotePrice, String rankPrice, boolean isPromote, String goodsThumb, String goodsImg, long addTime, String shareUrl, String properties) {
-        this.id = id;
-        this.goodsId = goodsId;
-        this.catId = catId;
-        this.goodsName = goodsName;
-        this.goodsEnglishName = goodsEnglishName;
-        this.goodsBrief = goodsBrief;
-        this.shopPrice = shopPrice;
-        this.currencyPrice = currencyPrice;
-        this.promotePrice = promotePrice;
-        this.rankPrice = rankPrice;
-        this.isPromote = isPromote;
-        this.goodsThumb = goodsThumb;
-        this.goodsImg = goodsImg;
-        this.addTime = addTime;
-        this.shareUrl = shareUrl;
-        this.properties = properties;
-    }
-
-    public GoodsDetails(int id) {
-
-        this.id = id;
-    }
+    private List<PropertiesBean> properties;
 
     public int getId() {
-
         return id;
     }
 
@@ -186,25 +177,19 @@ public class GoodsDetails {
         this.shareUrl = shareUrl;
     }
 
-    @Override
-    public String toString() {
-        return "GoodsDetails{" +
-                "id=" + id +
-                ", goodsId=" + goodsId +
-                ", catId=" + catId +
-                ", goodsName='" + goodsName + '\'' +
-                ", goodsEnglishName='" + goodsEnglishName + '\'' +
-                ", goodsBrief='" + goodsBrief + '\'' +
-                ", shopPrice='" + shopPrice + '\'' +
-                ", currencyPrice='" + currencyPrice + '\'' +
-                ", promotePrice='" + promotePrice + '\'' +
-                ", rankPrice='" + rankPrice + '\'' +
-                ", isPromote=" + isPromote +
-                ", goodsThumb='" + goodsThumb + '\'' +
-                ", goodsImg='" + goodsImg + '\'' +
-                ", addTime=" + addTime +
-                ", shareUrl='" + shareUrl + '\'' +
-                ", properties='" + properties + '\'' +
-                '}';
+    public boolean isPromote() {
+        return promote;
+    }
+
+    public void setPromote(boolean promote) {
+        this.promote = promote;
+    }
+
+    public List<PropertiesBean> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<PropertiesBean> properties) {
+        this.properties = properties;
     }
 }
