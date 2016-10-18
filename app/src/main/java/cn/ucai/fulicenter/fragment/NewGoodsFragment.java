@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.Activity.MainActivity;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.View.SpaceItemDecoration;
 import cn.ucai.fulicenter.adapter.GoodsAdapter;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.net.NetDao;
@@ -162,6 +163,7 @@ public class NewGoodsFragment extends Fragment {
         rvNewGoods.setLayoutManager(glm);
         rvNewGoods.setHasFixedSize(true);
         rvNewGoods.setAdapter(mAdapter);
+        rvNewGoods.addItemDecoration(new SpaceItemDecoration(12));
     }
 
 }
