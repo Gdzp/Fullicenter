@@ -27,10 +27,20 @@ import cn.ucai.fulicenter.utils.ImageLoader;
 public class GoodsAdapter extends Adapter {
     Context mContext;
     List<NewGoodsBean> mList;
+    boolean isMore;
     public GoodsAdapter(Context mContext, List<NewGoodsBean> list) {
         this.mContext = mContext;
         mList = new ArrayList<>();
         mList.addAll(list);
+    }
+
+    public boolean isMore() {
+        return isMore;
+    }
+
+    public void setMore(boolean more) {
+        notifyDataSetChanged();
+        isMore = more;
     }
 
     @Override
@@ -47,7 +57,8 @@ public class GoodsAdapter extends Adapter {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (getItemViewType(position) == I.TYPE_FOOTER) {
-
+            FooterViewHolder vh= (FooterViewHolder) holder;
+            vh.tvFooter.setText(getFootString());
         } else {
             GoodsViewHolder vh = (GoodsViewHolder) holder;
             NewGoodsBean goods = mList.get(position);
@@ -55,6 +66,11 @@ public class GoodsAdapter extends Adapter {
             vh.tvGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice.setText(goods.getCurrencyPrice());
         }
+    }
+
+    private int getFootString() {
+
+        return isMore?R.string.load_more:R.string.no_more;
     }
 
     @Override
