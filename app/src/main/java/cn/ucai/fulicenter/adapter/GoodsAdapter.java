@@ -1,24 +1,25 @@
 package cn.ucai.fulicenter.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.RecyclerView.Adapter;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.MFGT;
 
 /**
  * Created by 94896 on 2016/10/17.
@@ -65,6 +66,7 @@ public class GoodsAdapter extends Adapter {
             ImageLoader.downloadImg(mContext,vh.ivGoodsThumb,goods.getGoodsThumb());
             vh.tvGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice.setText(goods.getCurrencyPrice());
+            vh.layoutGoods.setTag(goods.getGoodsId());
         }
     }
 
@@ -98,7 +100,7 @@ public class GoodsAdapter extends Adapter {
     }
 
 
-    static class GoodsViewHolder extends ViewHolder {
+    class GoodsViewHolder extends ViewHolder {
         @BindView(R.id.ivGoodsThumb)
         ImageView ivGoodsThumb;
         @BindView(R.id.tvGoodsName)
@@ -111,6 +113,12 @@ public class GoodsAdapter extends Adapter {
         GoodsViewHolder (View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.layout_goods)
+        public void onGoodsItemClick(){
+            int goodsId=layoutGoods.getId();
+            MFGT.gotoGoodsDetailsActivity(mContext,goodsId);
+
         }
     }
 

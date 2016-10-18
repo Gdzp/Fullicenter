@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.Activity.MainActivity;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.View.SpaceItemDecoration;
+import cn.ucai.fulicenter.view.SpaceItemDecoration;
 import cn.ucai.fulicenter.adapter.GoodsAdapter;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.net.NetDao;
