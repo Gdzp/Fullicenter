@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +18,9 @@ import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.utils.ImageLoader;
+import cn.ucai.fulicenter.utils.L;
 import cn.ucai.fulicenter.utils.MFGT;
+import cn.ucai.fulicenter.view.FooterViewHolder;
 
 /**
  * Created by 94896 on 2016/10/17.
@@ -27,12 +28,12 @@ import cn.ucai.fulicenter.utils.MFGT;
 
 public class GoodsAdapter extends Adapter {
     Context mContext;
-    List<NewGoodsBean> mList;
+    ArrayList<NewGoodsBean> mList;
     boolean isMore;
-    public GoodsAdapter(Context mContext, List<NewGoodsBean> list) {
-        this.mContext = mContext;
+    public GoodsAdapter(Context Context, ArrayList<NewGoodsBean> list) {
         mList = new ArrayList<>();
         mList.addAll(list);
+        mContext=Context;
     }
 
     public boolean isMore() {
@@ -63,6 +64,7 @@ public class GoodsAdapter extends Adapter {
         } else {
             GoodsViewHolder vh = (GoodsViewHolder) holder;
             NewGoodsBean goods = mList.get(position);
+            L.e("details", "goodsid" + goods.getGoodsId());
             ImageLoader.downloadImg(mContext,vh.ivGoodsThumb,goods.getGoodsThumb());
             vh.tvGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice.setText(goods.getCurrencyPrice());
@@ -116,19 +118,11 @@ public class GoodsAdapter extends Adapter {
         }
         @OnClick(R.id.layout_goods)
         public void onGoodsItemClick(){
-            int goodsId=layoutGoods.getId();
+            int goodsId= (int) layoutGoods.getTag();
             MFGT.gotoGoodsDetailsActivity(mContext,goodsId);
 
         }
     }
 
-    static class FooterViewHolder extends ViewHolder {
-        @BindView(R.id.tvFooter)
-        TextView tvFooter;
 
-        FooterViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 }
