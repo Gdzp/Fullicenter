@@ -1,9 +1,9 @@
 package cn.ucai.fulicenter.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,11 +14,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.ucai.fulicenter.I;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.BoutiqueBean;
 import cn.ucai.fulicenter.utils.ImageLoader;
-import cn.ucai.fulicenter.view.FooterViewHolder;
+import cn.ucai.fulicenter.utils.MFGT;
+
+;
 
 
 /**
@@ -28,74 +30,50 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
 public class BoutiqueAdapter extends Adapter {
     Context mContext;
     ArrayList<BoutiqueBean> mList;
-    boolean isMore;
 
 
-
-    public boolean isMore() {
-        return isMore;
-    }
-
-    public void setMore(boolean more) {
-        isMore = more;
-        notifyDataSetChanged();
-    }
-
-    public BoutiqueAdapter(ArrayList<BoutiqueBean> mList, Context context) {
+    public BoutiqueAdapter(Context context, ArrayList<BoutiqueBean> list) {
         mContext=context;
         mList =new ArrayList<>();
-        mList.addAll(mList);
+        mList.addAll(list);
     }
 
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder holder;
-        if (viewType == I.TYPE_FOOTER) {
+    public BoutiqueViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            holder = new FooterViewHolder
-                    (LayoutInflater.from(mContext).inflate(R.layout.item_footer, parent, false));
-        } else {
-            holder = new BoutqueViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_boutique, parent, false));
-        }
+        BoutiqueViewHolder
+                holder = new BoutiqueViewHolder(View.inflate(mContext, R.layout.item_boutique, null));
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-            if (holder instanceof FooterViewHolder){
-                ((FooterViewHolder) holder).tvFooter.setText(getFooterString());
-            }
-if (holder instanceof BoutqueViewHolder){
-BoutiqueBean boutiqueBean=mList.get(position);
-    ImageLoader.downloadImg(mContext,((BoutqueViewHolder)holder).ivBoutiqueImg,boutiqueBean.getImageurl());
-    ((BoutqueViewHolder) holder).tvBoutiqueTitle.setText(boutiqueBean.getTitle());
-    ((BoutqueViewHolder) holder).tvBoutiqueName.setText(boutiqueBean.getName());
-    ((BoutqueViewHolder) holder).tvBoutiqueDescription.setText(boutiqueBean.getDescription());
+          BoutiqueViewHolder bh=(BoutiqueViewHolder)holder;
+    BoutiqueBean boutiqueBean=mList.get(position);
+    ImageLoader.downloadImg(mContext,bh.ivBoutiqueImg,boutiqueBean.getImageurl());
+  bh.tvBoutiqueTitle.setText(boutiqueBean.getTitle());
+   bh.tvBoutiqueName.setText(boutiqueBean.getName());
+    bh.tvBoutiqueDescription.setText(boutiqueBean.getDescription());
+        bh.layoutBoutiqueItem.setTag(boutiqueBean);
 
 }
-    }
-
-    private int getFooterString() {
-        return isMore?R.string.load_more:R.string.no_more;
-    }
 
     @Override
     public int getItemCount() {
-        return mList != null ? mList.size() + 1 : 1;
+        return mList != null?mList.size():0;
     }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
-            return I.TYPE_FOOTER;
-        }
-        return I.TYPE_ITEM;
+public void initData(ArrayList<BoutiqueBean>list){
+    if (mList!=null){
+        mList.clear();
     }
+    mList.addAll(list);
+    notifyDataSetChanged();
+}
 
-
-     class BoutqueViewHolder extends ViewHolder {
+    class BoutiqueViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ivBoutiqueImg)
         ImageView ivBoutiqueImg;
         @BindView(R.id.tvBoutiqueTitle)
@@ -107,9 +85,15 @@ BoutiqueBean boutiqueBean=mList.get(position);
         @BindView(R.id.layout_boutique_item)
         RelativeLayout layoutBoutiqueItem;
 
-        BoutqueViewHolder(View view) {
+        BoutiqueViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+        @OnClick(R.id.layout_boutique_item)
+        public void onBoutiqueClick(){
+        BoutiqueBean bean = (BoutiqueBean)layoutBoutiqueItem.getTag();
+         MFGT.gotoBoutichildActivity(mContext,bean);
+        }
+
     }
 }

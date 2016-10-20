@@ -1,22 +1,25 @@
 package cn.ucai.fulicenter.Activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.bean.AlbumsBean;
 import cn.ucai.fulicenter.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.net.OkHttpUtils;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 
-public class GoodsDetailActivity extends AppCompatActivity {
+public class GoodsDetailActivity extends BaseActivity {
 
     @BindView(R.id.backClickArea)
     LinearLayout backClickArea;
@@ -34,11 +37,11 @@ public class GoodsDetailActivity extends AppCompatActivity {
     cn.ucai.fulicenter.view.FlowIndicator indicator;
     @BindView(R.id.wv_good_brief)
     WebView wvGoodBrief;
-int goodsId;
+    int goodsId;
     GoodsDetailActivity mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_goods_detail);
         ButterKnife.bind(this);
         goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
@@ -47,15 +50,15 @@ int goodsId;
             finish();
         }
         mContext=this;
-        initView();
-        initData();
-        setListener();
+        super.onCreate(savedInstanceState);
+
+    }
+    @Override
+    protected void setListener() {
     }
 
-    private void setListener() {
-    }
-
-    private void initData() {
+    @Override
+    protected void initData() {
         NetDao.downloadGoodsDetall(mContext,
                 goodsId, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
                     @Override
@@ -86,8 +89,37 @@ int goodsId;
         tvGoodName.setText(detalis.getGoodsName());
         tvGoodPriceCurrent.setText(detalis.getCurrencyPrice());
         tvGoodPriceShop.setText(detalis.getShopPrice());
+        salv.startPlayLoop(indicator,getAlbumImgUrl(detalis),getAlbmImgConut(detalis));
+         wvGoodBrief.loadDataWithBaseURL(null,detalis.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
 
     }
-    private void initView() {
+    private int getAlbmImgConut(GoodsDetailsBean details){
+        if (details.getPromotePrice()!=null&&details.getPromotePrice().length()>0){
+            return details.getProperties()[0].getAlbums().length;
+        }
+        return 0;
+
+    }
+    private String[] getAlbumImgUrl(GoodsDetailsBean details){
+        String[]urls=new String []{};
+        if (details.getPromotePrice()!=null&&details.getProperties().length>0){
+            AlbumsBean[] albums=details.getProperties()[0].getAlbums();
+            urls=new String[albums.length];
+            for (int i=0;i<albums.length;i++){
+                urls[i]=albums[i].getImgUrl();
+            }
+
+        }
+        return urls;
+    }
+    @Override
+    protected void initView() {
+    }
+    @OnClick(R.id.backClickArea)
+    public void onBackClick(){
+        MFGT.finish(this);
+    }
+    public void onback(View v){
+        MFGT.finish(this);
     }
 }
