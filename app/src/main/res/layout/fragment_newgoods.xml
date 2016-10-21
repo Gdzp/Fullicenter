@@ -11,16 +11,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-      <TextView
-          android:id="@+id/tv_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/now_refresh"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
+        <include layout="@layout/layout_refresh_title"/>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+            android:id="@+id/rvNewGoods"
             android:layout_width="match_parent"
            android:layout_height="wrap_content">
 

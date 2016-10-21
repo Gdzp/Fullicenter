@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_category_child"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.angela.fulicenter.activity.CategoryChildActivity">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/main_orange"
@@ -24,7 +22,7 @@
                 android:src="@drawable/back"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
-        <com.example.angela.fulicenter.view.CatChildFilterButton
+        <cn.ucai.fulicenter.view.CatChildFilterButton
             android:id="@+id/btnCatChildFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
