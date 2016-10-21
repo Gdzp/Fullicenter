@@ -37,6 +37,7 @@ public class BoutichildActivity extends BaseActivity {
     SwipeRefreshLayout srl;
    BoutichildActivity mContext;
     GridLayoutManager glm ;
+    int catId;
     GoodsAdapter mAdapter;
     ArrayList<NewGoodsBean> mList;
     int pageId = 1;
@@ -95,7 +96,7 @@ BoutiqueBean boutique;
     }
 
     private void downloadNewGoods(final int action) {
-        NetDao.downloadCategoryGoods(mContext,boutique.getId(),pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        NetDao.downloadCategoryGoods(mContext,catId,pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 srl.setRefreshing(false);
