@@ -1,10 +1,21 @@
 package cn.ucai.fulicenter.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
+import java.util.ArrayList;
+
+import cn.ucai.fulicenter.Activity.BoutichildActivity;
+import cn.ucai.fulicenter.Activity.CategoryChildActivity;
+import cn.ucai.fulicenter.Activity.GoodsDetailActivity;
+import cn.ucai.fulicenter.Activity.LoginActivity;
 import cn.ucai.fulicenter.Activity.MainActivity;
+import cn.ucai.fulicenter.Activity.RegisterActivity;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.bean.BoutiqueBean;
+import cn.ucai.fulicenter.bean.CategoryChildBean;
 
 public class MFGT {
     public static void finish(Activity activity){
@@ -17,7 +28,51 @@ public class MFGT {
     public static void startActivity(Activity context,Class<?> cls){
         Intent intent = new Intent();
         intent.setClass(context,cls);
+        startActivity(context,intent);
+    }
+    public static void gotoGoodsDetailsActivity(Context context,int goodsId){
+        Intent intent = new Intent();
+        intent.setClass(context, GoodsDetailActivity.class);
+        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId);
+       startActivity(context,intent);
+    }
+    public static void gotoBoutichildActivity(Context context, BoutiqueBean tag){
+        Intent intent = new Intent();
+        intent.setClass(context, BoutichildActivity.class);
+        intent.putExtra(I.Boutique.CAT_ID,tag);
+        startActivity(context,intent);
+    }
+    public static void startActivity(Context context, Intent intent){
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+
+    }
+    public static void gotoBoutiqueChildActivity(Context context, BoutiqueBean tag){
+        Intent intent = new Intent();
+        intent.setClass(context, BoutichildActivity.class);
+        intent.putExtra(I.Boutique.CAT_ID,tag);
+        startActivity(context,intent);
+    }
+    public static void gotoCategoryChildActivity(Context context, int catId, String groupName, ArrayList<CategoryChildBean> list){
+        Intent intent = new Intent();
+        intent.setClass(context, CategoryChildActivity.class);
+        intent.putExtra(I.CategoryChild.CAT_ID,catId);
+        intent.putExtra(I.CategoryGroup.NAME,groupName);
+        intent.putExtra(I.CategoryChild.ID,list);
+        startActivity(context,intent);
+    }
+public static void gotoLogin(Activity context){
+    startActivity(context, LoginActivity.class);
+}
+    public static void gotoRegister(Activity context){
+        Intent intent=new Intent();
+        intent.setClass(context,RegisterActivity.class);
+        startActivityForResult(context,intent,I.REQUEST_CODE_REGISTER);
+
+    }
+    public static void startActivityForResult(Activity context,Intent intent,int requestCode){
+        context.startActivityForResult(intent,requestCode);
         context.overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
     }
+
 }
