@@ -2,17 +2,22 @@ package cn.ucai.fulicenter.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewGoodsFragment;
+import cn.ucai.fulicenter.fragment.PresonalCenterFragment;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.utils.MFGT;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
    RadioButton mLayoutNewGood;
     @BindView(R.id.layout_new_good)
@@ -26,19 +31,23 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.layout_personal_center)
     RadioButton layoutPersonalCenter;
     int index;
+    int currentIndex;
     Fragment[] mFragments;
     NewGoodsFragment mNewGoodsFragment;
+    BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
+    PresonalCenterFragment mPresonalCenterFragment;
+
 
     RadioButton[] rbs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        L.i("MainActivity onCreate");
-        initView();
+        L.i("MainActivity");
+        super.onCreate(savedInstanceState);
         setListener();
-        initFragment();
+
 
 
     }
@@ -46,24 +55,43 @@ public class MainActivity extends AppCompatActivity {
     private void initFragment() {
         mFragments=new Fragment[5];
         mNewGoodsFragment=new NewGoodsFragment();
+        mBoutiqueFragment=new BoutiqueFragment();
+        mCategoryFragment=new CategoryFragment();
+        mFragments[0]=mNewGoodsFragment;
+        mFragments[1]=mBoutiqueFragment;
+        mFragments[2]=mCategoryFragment;
+        mFragments[4]=mPresonalCenterFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
+                .add(R.id.fragment_container,mBoutiqueFragment)
+                .add(R.id.fragment_container,mCategoryFragment)
+                .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
 
-    private void setListener() {
+    @Override
+    protected  void setListener() {
 
     }
 
-    private void initView() {
+    @Override
+    protected  void initView() {
         rbs=new RadioButton[5];
-        rbs[0]= layoutNewGood;
+        rbs[0]=layoutNewGood;
         rbs[1]=layoutBoutique;
         rbs[2]=layoutCategory;
         rbs[3]=layoutCart;
         rbs[4]=layoutPersonalCenter;
+
+    }
+
+    @Override
+    protected void initData() {
+        initFragment();
+
 
     }
 
@@ -82,11 +110,29 @@ switch (v.getId()){
         index=3;
         break;
     case R.id.layout_personal_center:
-        index=4;
+        if (FuLiCenterApplication.getUser()==null){
+            MFGT.gotoLogin(this);
+        }else {
+            index=4;
+        }
         break;
 }
-        setRadioButtonStatus();
+        setmFragments();
     }
+    private void setmFragments(){
+        if (index!=currentIndex){
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.hide(mFragments[currentIndex]);
+        if (!mFragments[index].isAdded()){
+            ft.add(R.id.fragment_container,mFragments[index]);
+        }
+        ft.show(mFragments[index]).commit();
+
+        }
+      setRadioButtonStatus();
+    currentIndex=index;
+    }
+
 
     private void setRadioButtonStatus() {
         L.e("index="+index);
@@ -97,5 +143,9 @@ switch (v.getId()){
                 rbs[i].setChecked(false);
             }
         }
+    }
+    public void onBackPressed(){
+       finish();
+
     }
 }
