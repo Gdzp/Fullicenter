@@ -31,10 +31,9 @@ public class PresonalCenterFragment extends BaseFragment{
     ImageView mIvUserAvatar;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
+    User user;
 
     MainActivity mContext;
-
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_personal_center, container, false);
@@ -51,7 +50,7 @@ public class PresonalCenterFragment extends BaseFragment{
 
     @Override
     protected void initData() {
-        User user = FuLiCenterApplication.getUser();
+        user = FuLiCenterApplication.getUser();
         L.e(TAG,"user="+user);
         if(user==null){
             MFGT.gotoLogin(mContext);
@@ -65,9 +64,25 @@ public class PresonalCenterFragment extends BaseFragment{
     protected void setListener() {
 
     }
+    @Override
 
-    @OnClick(R.id.tv_center_settings)
-    public void onClick() {
+    public void onResume() {
+        super.onResume();
+        user = FuLiCenterApplication.getUser();
+        L.e(TAG, "user=" + user);
+        if (user != null) {
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
+            mTvUserName.setText(user.getMuserNick());
+        }
+    }
+
+
+    @OnClick({R.id.tv_center_settings,R.id.center_user_info})
+  public void gotoSetting(){
+        MFGT.gotoSettings(mContext);
+    }
+    private void initOrderList(){
+
     }
 
 }

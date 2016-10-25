@@ -1,7 +1,6 @@
 package cn.ucai.fulicenter.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.Activity.MainActivity;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.view.SpaceItemDecoration;
 import cn.ucai.fulicenter.adapter.GoodsAdapter;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.net.NetDao;
@@ -25,18 +23,17 @@ import cn.ucai.fulicenter.net.OkHttpUtils;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ConvertUtils;
 import cn.ucai.fulicenter.utils.L;
+import cn.ucai.fulicenter.view.SpaceItemDecoration;
 
+import static cn.ucai.fulicenter.R.id.rvNewGoods;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class NewGoodsFragment extends Fragment {
+public class NewGoodsFragment extends BaseFragment {
 
 
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
-    @BindView(R.id.rv)
-    RecyclerView rvNewGoods;
+    @BindView(rvNewGoods)
+    RecyclerView rv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     MainActivity mContext;
@@ -54,20 +51,20 @@ public class NewGoodsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        L.e("NewGoodsFragment.onCreateView");
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContext = (MainActivity) getContext();
         mList = new ArrayList<>();
         mAdapter = new GoodsAdapter( mContext,mList);
-        initView();
-        initData();
-        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return layout;
 
-    }
 
-    private void setListener() {
+    }
+   @Override
+    protected void setListener() {
         setPullUpListener();
         setPullDownListener();
     }
@@ -86,7 +83,7 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void downloadNewGoods(final int action) {
-        NetDao.downloadNewgoods(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        NetDao.downloadNewgoods(mContext, I.CAT_ID,pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 srl.setRefreshing(false);
@@ -125,7 +122,7 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void setPullUpListener() {
-        rvNewGoods.setOnScrollListener(new RecyclerView.OnScrollListener(){
+        rv.setOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -149,21 +146,23 @@ public class NewGoodsFragment extends Fragment {
 
     }
 
-    private void initData() {
+    @Override
+    protected  void initData() {
         downloadNewGoods(I.ACTION_DOWNLOAD);
 
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         srl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_green));
         glm = new GridLayoutManager(mContext, I.COLUM_NUM);
-        rvNewGoods.setLayoutManager(glm);
-        rvNewGoods.setHasFixedSize(true);
-        rvNewGoods.setAdapter(mAdapter);
-        rvNewGoods.addItemDecoration(new SpaceItemDecoration(12));
+        rv.setLayoutManager(glm);
+        rv.setHasFixedSize(true);
+        rv.setAdapter(mAdapter);
+        rv.addItemDecoration(new SpaceItemDecoration(12));
     }
 
 }
