@@ -138,12 +138,57 @@ public class GoodsDetailActivity extends BaseActivity {
 
     @OnClick(R.id.backClickArea)
     public void onBackClick() {
+
         MFGT.finish(this);
     }
 
     public void onback(View v) {
-        MFGT.finish(this);
-    }
+        MFGT.finish(this);}
+
+
+        @OnClick(R.id.iv_good_collect)
+        public void onCollectClick(){
+            User user=FuLiCenterApplication.getUser();
+            if (user==null){
+                MFGT.gotoLogin(mContext);
+            }else {
+                if (isCollected){
+                    NetDao.deleteCollect(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                        @Override
+                        public void onSuccess(MessageBean result) {
+                            if (result!=null&&result.isSuccess()){
+                                isCollected=!isCollected;
+                                updateGoodsCollectStatus();
+                            }
+
+                        }
+
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+                }else {
+                    NetDao.addCollect(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                        @Override
+                        public void onSuccess(MessageBean result) {
+                            if (result!=null&&result.isSuccess()){
+                                isCollected=!isCollected;
+                                updateGoodsCollectStatus();
+                            }
+
+                        }
+
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+                }
+            }
+
+        }
+
 
     public void isCollected() {
         User user = FuLiCenterApplication.getUser();
