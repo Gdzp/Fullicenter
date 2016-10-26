@@ -3,45 +3,25 @@
 <LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/activity_update_nick"
-
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
-
     android:orientation="vertical"
-
     android:background="@color/list_background"
-
     tools:context="cn.ucai.fulicenter.Activity.UpdateNickActivity">
-
     <include layout="@layout/common_head_title_white"/>
-
     <EditText
-
         android:id="@+id/et_update_user_name"
-
         android:layout_marginTop="15dp"
-
         android:layout_marginLeft="10dip"
-
         android:layout_marginRight="10dip"
-
         android:paddingTop="10dp"
-
         android:paddingBottom="10dp"
-
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-
         android:background="@color/white"
-
         android:paddingLeft="10dip"
-
         android:textSize="18sp" />
 
     <Button
