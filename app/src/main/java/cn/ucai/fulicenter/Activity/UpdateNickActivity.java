@@ -200,8 +200,6 @@ public class UpdateNickActivity extends BaseActivity {
 
             }
 
-
-
             @Override
 
             public void onError(String error) {

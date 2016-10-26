@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.widget.RadioButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.FuLiCenterApplication;
+import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.fragment.CategoryFragment;
@@ -19,7 +21,6 @@ import cn.ucai.fulicenter.utils.MFGT;
 
 public class MainActivity extends BaseActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
-   RadioButton mLayoutNewGood;
     @BindView(R.id.layout_new_good)
     RadioButton layoutNewGood;
     @BindView(R.id.layout_boutique)
@@ -46,7 +47,6 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         L.i("MainActivity");
         super.onCreate(savedInstanceState);
-        setListener();
 
 
 
@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
+        mPresonalCenterFragment = new PresonalCenterFragment();
         mFragments[0]=mNewGoodsFragment;
         mFragments[1]=mBoutiqueFragment;
         mFragments[2]=mCategoryFragment;
@@ -96,7 +97,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onCheckedChange(View v) {
-switch (v.getId()){
+    switch (v.getId()){
     case R.id.layout_new_good:
         index=0;
         break;
@@ -147,5 +148,17 @@ switch (v.getId()){
     public void onBackPressed(){
        finish();
 
+    }
+    protected void onResume(){
+        super.onResume();
+        L.e("onResult...");
+        setmFragments();
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        L.e("onActivityResult,requestCode="+requestCode);
+        if (requestCode== I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
+            index=4;
+        }
     }
 }

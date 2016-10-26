@@ -10,10 +10,13 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.bean.User;
+import cn.ucai.fulicenter.dao.SharePrefrenceUtils;
+import cn.ucai.fulicenter.dao.UserDao;
 import cn.ucai.fulicenter.net.NetDao;
 import cn.ucai.fulicenter.net.OkHttpUtils;
 import cn.ucai.fulicenter.utils.CommonUtils;
@@ -82,27 +85,37 @@ public class LoginActivity extends BaseActivity {
             return;
 
         }
-        login();
+        Login();
     }
 
-    private void login() {
+    private void Login() {
      final ProgressDialog pd=new ProgressDialog(mContext);
         pd.setMessage(getResources().getString(R.string.login_fail));
         pd.show();
         L.e(TAG,"username="+username+"password="+password);
-        NetDao.Login(mContext, username, password, new OkHttpUtils.OnCompleteListener<String>() {
+        NetDao.login(mContext, username, password, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-               Result result= ResultUtils.getListResultFromJson(s, User.class);
-
-
-                L.e(TAG,"result="+result);
+               Result result= ResultUtils.getResultFromJson(s,User.class);
+                L.e(TAG,"sssssssssss"+result);
                 if (result==null){
                     CommonUtils.showLongToast(R.string.login_fail);
+                    L.e(TAG,"AAAAA");
                 }else {
                     if (result.isRetMsg()){
                    User user= (User) result.getRetData();
-                        L.e(TAG,"user="+user);
+                        L.e(TAG,"uuuu="+user);
+                        UserDao dao=new UserDao(mContext);
+                        boolean isSuccess=dao.saveUser(user);
+                        if (isSuccess){
+                            SharePrefrenceUtils.getInstence(mContext).saveUser(user.getMuserName());
+                            FuLiCenterApplication.setUser(user);
+                            MFGT.finish(mContext);
+                        }else {
+                            CommonUtils.showLongToast(R.string.user_database_error);
+                        }
+                        L.e(TAG,"B");
+                        dao.saveUser(user);
                         MFGT.finish(mContext);
                     }else {
                         if (result.getRetCode()==I.MSG_LOGIN_UNKNOW_USER){

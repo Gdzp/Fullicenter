@@ -159,6 +159,7 @@ public class GoodsDetailActivity extends BaseActivity {
                             if (result!=null&&result.isSuccess()){
                                 isCollected=!isCollected;
                                 updateGoodsCollectStatus();
+                                CommonUtils.showLongToast(result.getMsg());
                             }
 
                         }
@@ -175,6 +176,7 @@ public class GoodsDetailActivity extends BaseActivity {
                             if (result!=null&&result.isSuccess()){
                                 isCollected=!isCollected;
                                 updateGoodsCollectStatus();
+                                CommonUtils.showLongToast(result.getMsg());
                             }
 
                         }
