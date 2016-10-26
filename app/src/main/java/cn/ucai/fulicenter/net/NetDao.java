@@ -8,7 +8,9 @@ import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.bean.BoutiqueBean;
 import cn.ucai.fulicenter.bean.CategoryChildBean;
 import cn.ucai.fulicenter.bean.CategoryGroupBean;
+import cn.ucai.fulicenter.bean.CollectBean;
 import cn.ucai.fulicenter.bean.GoodsDetailsBean;
+import cn.ucai.fulicenter.bean.MessageBean;
 import cn.ucai.fulicenter.bean.NewGoodsBean;
 import cn.ucai.fulicenter.bean.Result;
 import cn.ucai.fulicenter.utils.MD5;
@@ -109,11 +111,8 @@ public class NetDao {
 
     }
     public static void updateAvatar(Context context, String username, File file, OkHttpUtils.OnCompleteListener<String> listener){
-
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
-
         utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
-
                 .addParam(I.NAME_OR_HXID,username)
                 .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
                 .addFile2(file)
@@ -122,7 +121,42 @@ public class NetDao {
                 .execute(listener);
 
     }
+    public static void syncUserInfo(Context context, String username
+            , OkHttpUtils.OnCompleteListener<String> listener){
+        OkHttpUtils<String> utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_USER)
+                .addParam(I.User.USER_NAME,username)
+                .targetClass(String.class)
+                .execute(listener);
+
+    }
+public static void getCollectsCount(Context context, String username,
+                                    OkHttpUtils.OnCompleteListener<MessageBean>listener){
+    OkHttpUtils<MessageBean> utils=new OkHttpUtils<>(context);
+    utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
+            .addParam(I.Collect.USER_NAME,username)
+            .targetClass(MessageBean.class)
+            .execute(listener);
 
 
+}
+    public static void downloadCollects(Context context, String username, int pageId, OkHttpUtils.OnCompleteListener<CollectBean[]>listener){
+        OkHttpUtils<CollectBean[]> utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
+                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.PAGE_ID,String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(CollectBean[].class)
+                .execute(listener);
+    }
+public static void deleteCollect(Context context,String username,int
+        goodsId,OkHttpUtils.OnCompleteListener<MessageBean> listener){
+    OkHttpUtils<MessageBean> utils=new OkHttpUtils<>(context);
+    utils.setRequestUrl(I.REQUEST_DELETE_COLLECT)
+            .addParam(I.Collect.USER_NAME,username)
+            .addParam(I.Collect.GOODS_ID,String.valueOf(goodsId))
+            .targetClass(MessageBean.class)
+            .execute(listener);
+}
 
 }

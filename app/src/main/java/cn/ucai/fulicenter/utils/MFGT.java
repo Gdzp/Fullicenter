@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import cn.ucai.fulicenter.Activity.BoutichildActivity;
 import cn.ucai.fulicenter.Activity.CategoryChildActivity;
+import cn.ucai.fulicenter.Activity.CollectsActivity;
 import cn.ucai.fulicenter.Activity.GoodsDetailActivity;
 import cn.ucai.fulicenter.Activity.LoginActivity;
 import cn.ucai.fulicenter.Activity.MainActivity;
@@ -83,6 +84,9 @@ public static void gotoLogin(Activity context){
     }
     public static void gotoUpdateNick(Activity context){
         startActivityForResult(context,new Intent(context, UpdateNickActivity.class),REQUST_UPDATE_NICK);
+    }
+    public static void gotoCollects(Activity context){
+        startActivity(context, CollectsActivity.class);
     }
 
 }
