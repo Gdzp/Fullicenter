@@ -57,6 +57,7 @@ public interface I {
     int REQUEST_CODE_NICK =104 ;
   int REQUST_FIND_COLLECT_COUNT =105 ;
     int REQUST_DELETE_COLLECT =106 ;
+    int REQUEST_CODE_LOGIN_FROM_CART =107 ;
 
 
     interface Goods {

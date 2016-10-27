@@ -69,10 +69,10 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
-//                .add(R.id.fragment_container,mBoutiqueFragment)
-//                .add(R.id.fragment_container,mCategoryFragment)
-//                .hide(mBoutiqueFragment)
-//                .hide(mCategoryFragment)
+                .add(R.id.fragment_container,mBoutiqueFragment)
+                .add(R.id.fragment_container,mCategoryFragment)
+                .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
@@ -112,7 +112,11 @@ public class MainActivity extends BaseActivity {
         index=2;
         break;
     case R.id.layout_cart:
-        index=3;
+        if (FuLiCenterApplication.getUser()==null){
+            MFGT.gotoLoginFromCart(this);
+        }else {
+            index=3;
+        }
         break;
     case R.id.layout_personal_center:
         if (FuLiCenterApplication.getUser()==null){
@@ -156,13 +160,21 @@ public class MainActivity extends BaseActivity {
     protected void onResume(){
         super.onResume();
         L.e("onResult...");
+        if (index==4&&FuLiCenterApplication.getUser()==null){
+            index=0;
+        }
         setmFragments();
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         L.e("onActivityResult,requestCode="+requestCode);
-        if (requestCode== I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
+        if (  FuLiCenterApplication.getUser()!=null){
+            if (requestCode== I.REQUEST_CODE_LOGIN)
             index=4;
         }
+        if (requestCode== I.REQUEST_CODE_LOGIN_FROM_CART){
+            index=3;
+        }
+
     }
 }
