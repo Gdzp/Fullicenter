@@ -13,6 +13,7 @@ import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.fragment.CartFragment;
 import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewGoodsFragment;
 import cn.ucai.fulicenter.fragment.PresonalCenterFragment;
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    CartFragment mCartFrament;
     PresonalCenterFragment mPresonalCenterFragment;
 
 
@@ -57,18 +59,20 @@ public class MainActivity extends BaseActivity {
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
+        mCartFrament=new CartFragment();
         mPresonalCenterFragment = new PresonalCenterFragment();
         mFragments[0]=mNewGoodsFragment;
         mFragments[1]=mBoutiqueFragment;
         mFragments[2]=mCategoryFragment;
+        mFragments[3]=mCartFrament;
         mFragments[4]=mPresonalCenterFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
-                .add(R.id.fragment_container,mBoutiqueFragment)
-                .add(R.id.fragment_container,mCategoryFragment)
-                .hide(mBoutiqueFragment)
-                .hide(mCategoryFragment)
+//                .add(R.id.fragment_container,mBoutiqueFragment)
+//                .add(R.id.fragment_container,mCategoryFragment)
+//                .hide(mBoutiqueFragment)
+//                .hide(mCategoryFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
