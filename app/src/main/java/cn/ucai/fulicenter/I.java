@@ -58,6 +58,7 @@ public interface I {
   int REQUST_FIND_COLLECT_COUNT =105 ;
     int REQUST_DELETE_COLLECT =106 ;
     int REQUEST_CODE_LOGIN_FROM_CART =107 ;
+    String BROADCAST_UPDATA_CART = "cn.ucai.fulicenter.update.cart";
 
 
     interface Goods {
