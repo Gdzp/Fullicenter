@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.CartBean;
@@ -65,6 +66,7 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
                 mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
             }
         });
+        holder.ivCardAdd.setTag(position);
     }
 
     @Override
@@ -103,5 +105,12 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
             super(view);
             ButterKnife.bind(this,view);
         }
+      @OnClick(R.id.iv_card_add)
+      public void addCart(){
+          int position= (int) ivCardAdd.getTag();
+          mList.get(position).setCount(mList.get(position).getCount()+1);
+          mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
+          tvCardGoodsCount.setText("("+(mList.get(position).getCount())+")");
+      }
     }
 }
