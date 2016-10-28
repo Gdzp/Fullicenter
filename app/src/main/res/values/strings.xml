@@ -36,4 +36,6 @@
     <string name="update_user_nick_success">updatar_user_nick_success</string>
     <string name="collect_title">collect_title</string>
     <string name="delete_collect_fail">delete_collect_fail</string>
+    <string name="add_goods_success">add_goods_success</string>
+    <string name="add_goods_fail">add_goods_fail</string>
 </resources>
