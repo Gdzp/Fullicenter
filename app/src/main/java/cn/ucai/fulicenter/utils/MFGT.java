@@ -12,6 +12,7 @@ import cn.ucai.fulicenter.Activity.CollectsActivity;
 import cn.ucai.fulicenter.Activity.GoodsDetailActivity;
 import cn.ucai.fulicenter.Activity.LoginActivity;
 import cn.ucai.fulicenter.Activity.MainActivity;
+import cn.ucai.fulicenter.Activity.OrderActivity;
 import cn.ucai.fulicenter.Activity.RegisterActivity;
 import cn.ucai.fulicenter.Activity.UpdateNickActivity;
 import cn.ucai.fulicenter.Activity.UserProfileActivity;
@@ -33,48 +34,43 @@ public class MFGT {
     public static void startActivity(Activity context,Class<?> cls){
         Intent intent = new Intent();
         intent.setClass(context,cls);
-        startActivity(context,intent, I.REQUEST_CODE_LOGIN);
+        startActivity(context,intent);
     }
     public static void gotoGoodsDetailsActivity(Context context,int goodsId){
         Intent intent = new Intent();
         intent.setClass(context, GoodsDetailActivity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId);
-       startActivity(context,intent, I.REQUEST_CODE_LOGIN);
+       startActivity(context,intent);
     }
     public static void gotoBoutichildActivity(Context context, BoutiqueBean tag){
         Intent intent = new Intent();
         intent.setClass(context, BoutichildActivity.class);
         intent.putExtra(I.Boutique.CAT_ID,tag);
-        startActivity(context,intent, I.REQUEST_CODE_LOGIN);
+        startActivity(context,intent);
     }
-    public static void startActivity(Context context, Intent intent, int requestCodeLogin){
+    public static void startActivity(Context context, Intent intent){
         context.startActivity(intent);
         ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
 
     }
-    public static void gotoBoutiqueChildActivity(Context context, BoutiqueBean tag){
-        Intent intent = new Intent();
-        intent.setClass(context, BoutichildActivity.class);
-        intent.putExtra(I.Boutique.CAT_ID,tag);
-        startActivity(context,intent, I.REQUEST_CODE_LOGIN);
-    }
+
     public static void gotoCategoryChildActivity(Context context, int catId, String groupName, ArrayList<CategoryChildBean> list){
         Intent intent = new Intent();
         intent.setClass(context, CategoryChildActivity.class);
         intent.putExtra(I.CategoryChild.CAT_ID,catId);
         intent.putExtra(I.CategoryGroup.NAME,groupName);
         intent.putExtra(I.CategoryChild.ID,list);
-        startActivity(context,intent, I.REQUEST_CODE_LOGIN);
+        startActivity(context,intent);
     }
 public static void gotoLogin(Activity context){
     Intent intent=new Intent();
     intent.setClass(context,LoginActivity.class);
-    startActivity(context,intent,I.REQUEST_CODE_LOGIN);
+    startActivity(context,intent);
 }
     public static void gotoLoginFromCart(Activity context){
         Intent intent=new Intent();
         intent.setClass(context,LoginActivity.class);
-        startActivity(context,intent,I.REQUEST_CODE_LOGIN_FROM_CART);
+        startActivity(context,intent);
     }
 
 
@@ -99,6 +95,11 @@ public static void gotoLogin(Activity context){
     }
     public static void gotoCollects(Activity context){
         startActivity(context, CollectsActivity.class);
+    }
+    public static void gotoBuy(Context context, String cartIds){
+        Intent intent=new Intent(context,OrderActivity.class).putExtra(I.Cart.ID,cartIds);
+        startActivity(context,intent);
+
     }
 
 }
