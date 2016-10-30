@@ -49,6 +49,7 @@ package="cn.ucai.fulicenter">
     <activity android:name=".Activity.UpdateNickActivity" />
     <activity android:name=".Activity.CollectsActivity" />
     <!-- shred SDK start -->
+
     <activity
         android:name="com.mob.tools.MobUIShell"
         android:configChanges="keyboardHidden|orientation|screenSize"
@@ -165,6 +166,7 @@ package="cn.ucai.fulicenter">
         android:theme="@style/EbpayThemeActivit"
         android:windowSoftInputMode="stateVisible" />
     <activity
+
         android:name="com.baidu.paysdk.ui.PwdCheckActivity"
         android:configChanges="keyboardHidden|navigation|orientation|screenSize"
         android:excludeFromRecents="true"
